@@ -27,9 +27,23 @@ let sendMsg = msg => {
 };
 
 let touch = msg => {
-    let socket = new WebSocket("ws://localhost:8080/touch");
-    console.log("Trying to touch backend with ", msg);
-    socket.send(msg);
+    console.log(msg);
+    const data = { content: msg };
+    console.log(data);
+
+    fetch('http://localhost:8080/touch', {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'text/plain',
+            },
+        body: JSON.stringify(data),
+    })
+    .then((data) => {
+        console.log('Success:', data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
 }
 
 export { connect, sendMsg, touch };
