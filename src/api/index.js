@@ -27,9 +27,7 @@ let sendMsg = msg => {
 };
 
 let touch = msg => {
-    console.log(msg);
     const data = { content: msg };
-    console.log(data);
 
     fetch('http://localhost:8080/touch', {
         method: 'POST', // or 'PUT'
@@ -38,8 +36,10 @@ let touch = msg => {
             },
         body: JSON.stringify(data),
     })
-    .then((data) => {
-        console.log('Success:', data);
+    .then(dataWrappedByPromise => dataWrappedByPromise.text())
+    .then(promiseData => {
+        // you can access your data here
+        console.log(promiseData)
     })
     .catch((error) => {
         console.error('Error:', error);

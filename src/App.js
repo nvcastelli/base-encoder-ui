@@ -16,7 +16,8 @@ class App extends Component {
 
   touch() {
     console.log("touching!")
-    touch("backend?")
+    var encodeString = touch("backend?")
+    console.log(encodeString);
   }
 
   render() {
