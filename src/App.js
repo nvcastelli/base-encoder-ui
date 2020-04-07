@@ -17,7 +17,15 @@ class App extends Component {
   touch() {
     console.log("touching!")
     var encodeString = touch("backend?")
-    console.log(encodeString);
+    .then(dataWrappedByPromise => dataWrappedByPromise.text())
+    .then(promiseData => {
+        // you can access your data here
+        console.log("in promise " + promiseData)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    console.log("What is in here? " + encodeString);
   }
 
   render() {

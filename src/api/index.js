@@ -26,24 +26,31 @@ let sendMsg = msg => {
     socket.send(msg);
 };
 
-let touch = msg => {
+let touch = (msg) => {
     const data = { content: msg };
+    console.log(msg)
+    //http://localhost:8080/touch
+    //console.log("URL on API is: " + url)
 
-    fetch('http://localhost:8080/touch', {
+    return fetch("http://localhost:8080/touch", {
         method: 'POST', // or 'PUT'
         headers: {
             'Content-Type': 'text/plain',
             },
         body: JSON.stringify(data),
-    })
-    .then(dataWrappedByPromise => dataWrappedByPromise.text())
-    .then(promiseData => {
-        // you can access your data here
-        console.log(promiseData)
-    })
-    .catch((error) => {
-        console.error('Error:', error);
     });
+
+    
+        /*let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+                },
+            body: JSON.stringify(data),
+        };
+    
+        return fetch(url, options).then(response => response.text());*/
+
 }
 
 export { connect, sendMsg, touch };
