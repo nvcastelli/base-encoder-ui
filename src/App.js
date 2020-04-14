@@ -7,13 +7,36 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      value: "Enter value to be encoded here...",
     };
 
     // Bind touch() to `this`
     this.touch = this.touch.bind(this);
 
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     connect();
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    //alert('A name was submitted: ' + this.state.value);
+    touch(this.state.value)
+    .then(dataWrappedByPromise => dataWrappedByPromise.text())
+    .then(promiseData => {
+        // Access Promise Data Here, setting the state
+        this.setState({data: promiseData})
+        console.log("data is " + promiseData)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    event.preventDefault();
   }
 
   sendBasic() {
@@ -21,26 +44,37 @@ class App extends Component {
     sendMsg("hello");
   }
 
-  touch() {
+  // may deprecate this function and do in the handleSubmit(), TODO - what's best way to do it?
+  touch(encodeText) {
     // take value from front end text here, will need to pass a value
-    var encodeString = touch("backend?")
+    console.log("in outer touch")
+    touch(encodeText)
     .then(dataWrappedByPromise => dataWrappedByPromise.text())
     .then(promiseData => {
         // Access Promise Data Here, setting the state
         this.setState({data: promiseData})
+        console.log("data is " + promiseData)
     })
     .catch((error) => {
         console.error('Error:', error);
     });
   }
 
+  //<button onClick={this.touch}>Touch</button>
+        
+  //b<h2>It is {this.state.data}.</h2>
+
   render() {
     return (
       <div className="App">
-        <button onClick={this.sendBasic}>Hit</button>
-        <button onClick={this.touch}>Touch</button>
-      
-        <h2>It is {this.state.data}.</h2>
+        <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <textarea type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+      <h2>It is {this.state.data}.</h2>
       </div>
     );
   }
