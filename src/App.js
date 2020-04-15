@@ -1,7 +1,7 @@
 // App.js
 import React, { Component } from "react";
 import "./App.css";
-import { connect, sendMsg, touch } from "./api";
+import { connect, sendMsg, encodeapi } from "./api";
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class App extends Component {
     };
 
     // Bind touch() to `this`
-    this.touch = this.touch.bind(this);
+    this.encodeui = this.encodeui.bind(this);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -26,7 +26,7 @@ class App extends Component {
 
   handleSubmit(event) {
     //alert('A name was submitted: ' + this.state.value);
-    touch(this.state.value)
+    encodeapi(this.state.value)
     .then(dataWrappedByPromise => dataWrappedByPromise.text())
     .then(promiseData => {
         // Access Promise Data Here, setting the state
@@ -45,10 +45,10 @@ class App extends Component {
   }
 
   // may deprecate this function and do in the handleSubmit(), TODO - what's best way to do it?
-  touch(encodeText) {
+  encodeui(encodeText) {
     // take value from front end text here, will need to pass a value
     console.log("in outer touch")
-    touch(encodeText)
+    encodeapi(encodeText)
     .then(dataWrappedByPromise => dataWrappedByPromise.text())
     .then(promiseData => {
         // Access Promise Data Here, setting the state
@@ -69,7 +69,7 @@ class App extends Component {
       <div className="App">
         <form onSubmit={this.handleSubmit}>
         <label>
-          Name:
+          Textbox to place string to be encoded:
           <textarea type="text" value={this.state.value} onChange={this.handleChange} />
         </label>
         <input type="submit" value="Submit" />

@@ -26,7 +26,7 @@ let sendMsg = msg => {
     socket.send(msg);
 };
 
-let touch = (msg) => {
+let encodeapi = (msg) => {
     const data = { content: msg };
     console.log(msg)
     //http://localhost:8080/touch
@@ -53,4 +53,4 @@ let touch = (msg) => {
 
 }
 
-export { connect, sendMsg, touch };
+export { connect, sendMsg, encodeapi };
