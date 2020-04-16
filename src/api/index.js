@@ -32,7 +32,7 @@ let encodeapi = (msg) => {
     //http://localhost:8080/touch
     //console.log("URL on API is: " + url)
 
-    return fetch("http://localhost:8080/touch", {
+    return fetch("http://localhost:8080/encode", {
         method: 'POST', // or 'PUT'
         headers: {
             'Content-Type': 'text/plain',
